@@ -1,14 +1,16 @@
 version: '3'
 services:
-  vpronginx:
-    image: visualpath/vpronginx
+  vproweb:
+    image: noelnondoh/vproweb:V1
     ports:
-      - "80:80"
+      - "81:81"
 
   vproapp:
-    image: imranvisualpath/vproappfix
+    image: noelnondoh/vproapp:V1
     ports:
       - "8080:8080"
+    volumes:
+      - vproappdata:/usr/local/tomcat/webapps
 
   vprocache01:
     image: memcached
@@ -24,9 +26,9 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
 
   vprodb:
-    image: imranvisualpath/vprdbfix
+    image: noelnondoh/vprodb:V1
     ports:
-      - "3306:3306"
+      - "3307:3307"
     volumes:
       - vprodbdata:/var/lib/mysql
     environment:
@@ -34,3 +36,4 @@ services:
 
 volumes:
   vprodbdata: {}
+  vproappdata: {}
